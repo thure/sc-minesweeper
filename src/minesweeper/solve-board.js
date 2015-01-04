@@ -11,9 +11,9 @@ define(['underscore'], function(_){
     });
 
     _.each(mines, function(mine){
-      for(var x = mine.x - 1; x < mine.x + 3; x += 1){
+      for(var x = mine.x - 1; x < mine.x + 2; x += 1){
         if(x >=0 && x < width) {
-          for (var y = mine.y - 1; y < mine.y + 3; y += 1) {
+          for (var y = mine.y - 1; y < mine.y + 2; y += 1) {
             if(y >=0 && y < height) {
               board[x][y].adjacent += 1;
             }
