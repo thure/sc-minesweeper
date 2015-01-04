@@ -1,0 +1,35 @@
+@size_tile: 1rem;
+
+.board-size(@i) when (@i > 0) {
+    .board-size((@i - 1));    // next iteration
+
+    &[data-width="@{i}"] {
+        width: @i * @size_tile;
+    }
+    &[data-height="@{i}"] {
+        height: @i * @size_tile;
+    }
+
+}
+
+article.board {
+    .board-size(32);
+
+    font-size: 0;
+
+    b.tile {
+        font-size: 1rem;
+        text-align: center;
+        display: inline-block;
+        line-height: @size_tile;
+        height: @size_tile;
+        width: @size_tile;
+        overflow: hidden;
+
+        &.mine {
+            background-color: red;
+        }
+
+    }
+
+}

@@ -1,0 +1,13 @@
+<article class="board" data-width="<%= width %>" data-height="<%= height %>">
+  <% _.each(board, function(column, x){ %>
+
+    <% _.each(column, function(tile, y){ %>
+
+      <b class="tile<% if(tile.mine){ %> mine<% } %>" data-x="<%= x %>" data-y="<%= y %>">
+        <% if(tile.adjacent > 0 && !tile.mine){ print(tile.adjacent) } %>
+      </b>
+
+    <% }); %>
+
+  <% }); %>
+</article>
