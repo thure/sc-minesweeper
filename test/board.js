@@ -38,7 +38,7 @@ describe('Minesweeper', function () {
     });
 
     it('board should exist.', function(){
-        var game = new Minesweeper(8, 8, .2);
+        var game = new Minesweeper(64, 64, .8);
         return game.should.have.property('board');
     })
 
