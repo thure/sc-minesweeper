@@ -1,7 +1,4 @@
-var path = require('path'),
-    spawn = require('child_process').spawn,
-    requirejs = require('requirejs'),
-    assert = require('assert'),
+var assert = require('assert'),
     chai = require('chai'),
     expect = chai.expect;
 
@@ -9,37 +6,27 @@ chai.should();
 
 describe('Minesweeper', function () {
 
-    var Minesweeper = null;
 
-    before(function(done){
+    describe('board', function(){
 
-        requirejs.config({
-            baseUrl: path.join(__dirname, '../dist/js'),
-            paths: {
-                'text': 'vendor/text',
-                'q': 'vendor/q',
-                'underscore': 'vendor/underscore',
-                'jquery': 'vendor/jquery',
-                'scion': 'vendor/scion'
-            }
-        });
-
-        var grunt = spawn('grunt', ['dist:nowatch']);
-
-        grunt.on('close', function(){
-
-            requirejs(['minesweeper/game'], function(game){
-                Minesweeper = game;
-                done();
-            });
-
+        it('should exist.', function(){
+            var game = new global.Minesweeper(64, 64, .8);
+            return game.should.have.property('board');
         });
 
     });
 
-    it('board should exist.', function(){
-        var game = new Minesweeper(64, 64, .8);
-        return game.should.have.property('board');
-    })
+    describe('select', function(){
+
+        it('should return an array of coordinates', function(){
+
+            var game = new global.Minesweeper(8, 8, .01),
+                selection = game.select(1, 1);
+
+            return selection.should.be.instanceof(Array) && selection[0].should.have.property('x') && selection[0].should.have.property('y');
+
+        });
+
+    });
 
 });

@@ -1,8 +1,9 @@
 define([
     'underscore',
     'minesweeper/place-mines',
-    'minesweeper/solve-board'
-], function(_, placeMines, solveBoard){
+    'minesweeper/solve-board',
+    'minesweeper/select'
+], function(_, placeMines, solveBoard, select){
 
   /**
    * Minesweeper game constructor. Returns a unique game object that contains information regarding the board.
@@ -13,6 +14,11 @@ define([
    * @constructor
    */
   function Minesweeper(width, height, difficulty){
+
+    this.width = width;
+    this.height = height;
+
+    this.select = _.bind(select, this);
 
     this.board = solveBoard(width, height,
         placeMines(width, height, difficulty)
