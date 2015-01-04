@@ -5,13 +5,15 @@
         initial="init">
 
     <state id="init">
-        <transition event="ready" target="idle"/>
+        <transition event="ready" target="idle">
+            <script>
+                console.log('SC: app ready');
+            </script>
+        </transition>
     </state>
 
     <state id="idle">
-        <onentry><script>
-            console.log('App ready!');
-        </script></onentry>
+
     </state>
 
 </scxml>
