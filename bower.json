@@ -1,0 +1,29 @@
+{
+  "name": "sc-minesweeper",
+  "version": "0.0.0",
+  "authors": [
+    "Will Shown <w@willshown.com>"
+  ],
+  "description": "Yet another minesweeper game for the web.",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "components",
+    "test",
+    "tests",
+    "vendor"
+  ],
+  "dependencies": {
+    "jquery": "jquery/jquery",
+    "require": "jrburke/requirejs",
+    "underscore": "jashkenas/underscore",
+    "text": "requirejs/text",
+    "normalize": "necolas/normalize.css",
+    "css-reset": "jasonkarns/css-reset",
+    "scion": "jbeard4/SCION#master",
+    "q": "1.0.1"
+  }
+}

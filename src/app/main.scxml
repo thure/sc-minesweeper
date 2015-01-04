@@ -1,0 +1,17 @@
+<scxml
+        xmlns="http://www.w3.org/2005/07/scxml"
+        version="1.0"
+        profile="ecmascript"
+        initial="init">
+
+    <state id="init">
+        <transition event="ready" target="idle"/>
+    </state>
+
+    <state id="idle">
+        <onentry><script>
+            console.log('App ready!');
+        </script></onentry>
+    </state>
+
+</scxml>
