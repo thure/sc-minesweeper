@@ -1,21 +1,9 @@
-@size_tile: 1rem;
-
-.board-size(@i) when (@i > 0) {
-    .board-size((@i - 1));    // next iteration
-
-    &[data-width="@{i}"] {
-        width: @i * @size_tile;
-    }
-    &[data-height="@{i}"] {
-        height: @i * @size_tile;
-    }
-
-}
+@size_tile: 2rem;
 
 article.board {
-    .board-size(32);
 
     font-size: 0;
+    padding: 1px 1px 0 0;
 
     div.column, b.tile {
         display: inline-block;
@@ -24,21 +12,25 @@ article.board {
 
     div.column {
         height: 100%;
+        margin: 0 0 0 1px;
     }
 
     b.tile {
-        font-size: 1rem;
+        color: transparent;
+        cursor: pointer;
+        font-size: 1.2rem;
         text-align: center;
         line-height: @size_tile;
         height: @size_tile;
+        margin: 0 0 1px 0;
         overflow: hidden;
-
-        &.mine {
-            background-color: #F58F84;
-        }
+        background-color: @color_backdrop;
+        transition: background-color 200ms ease, color 200ms ease;
 
         &.revealed {
-            background-color: #86ABA5;
+            cursor: default;
+            background-color: transparent;
+            color: @color_backdrop;
         }
 
     }

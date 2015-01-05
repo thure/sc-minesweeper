@@ -2,3 +2,38 @@
 @import (less) "../../vendor/css-reset/reset.css";
 
 @import "../board/board";
+
+@color_backdrop: fade(#27221F, 67%);
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-flow: row nowrap;
+
+    &::before, &::after {
+        content: '';
+        display: block;
+        flex: 1 0 auto;
+        height: 100%;
+        background-color: @color_backdrop;
+    }
+
+}
+
+body > main {
+    flex: 0 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+
+    &::before, &::after {
+        content: '';
+        display: block;
+        flex: 1 0 auto;
+        width: 100%;
+        background-color: @color_backdrop;
+    }
+
+}
