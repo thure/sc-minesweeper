@@ -1,12 +1,12 @@
-<article class="board" data-width="<%= width %>" data-height="<%= height %>">
-  <% _.each(board, function(column, x){ %>
+<article class="board" data-width="<%= game.width %>" data-height="<%= game.height %>">
+  <% _.each(game.board, function(column, x){ %>
 
     <div class="column">
 
       <% _.each(column, function(tile, y){ %>
 
         <b class="tile<% if(tile.mine){ %> mine<% } %>" data-x="<%= x %>" data-y="<%= y %>">
-          <% if(tile.adjacent > 0 && !tile.mine){ print(tile.adjacent) } %>
+          <% if(tile.adjacent > 0 && !tile.mine){ print(romanize(tile.adjacent)) } %>
         </b>
 
       <% }); %>

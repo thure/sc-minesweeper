@@ -3,7 +3,14 @@
 
 @import "../board/board";
 
-@color_backdrop: fade(#27221F, 67%);
+@color_black: #27221F;
+@color_backdrop: fade(@color_black, 67%);
+
+html {
+    font-size: 12pt;
+    font-family: "Helvetica Neue", "Helvetica", sans-serif;
+    color: @color_backdrop;
+}
 
 html, body {
     height: 100%;
@@ -36,4 +43,8 @@ body > main {
         background-color: @color_backdrop;
     }
 
+}
+
+b {
+    font-weight: inherit;
 }

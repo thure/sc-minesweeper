@@ -34,9 +34,41 @@ define([
 
     }, this);
 
+    this.romanize = function(int){
+      switch(int){
+        case 1:
+          return 'I';
+          break;
+        case 2:
+          return 'II';
+          break;
+        case 3:
+          return 'III';
+          break;
+        case 4:
+          return 'IV';
+          break;
+        case 5:
+          return 'V';
+          break;
+        case 6:
+          return 'VI';
+          break;
+        case 7:
+          return 'VII';
+          break;
+        case 8:
+          return 'VIII';
+          break;
+      }
+    };
+
     this.render = function(){
 
-      var $el = $( template(this.game) );
+      var $el = $(template({
+        game: this.game,
+        romanize: this.romanize
+      }));
 
       $('body > main').append($el);
 
