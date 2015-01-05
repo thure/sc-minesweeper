@@ -6,25 +6,26 @@
 @color_black: #27221F;
 @color_backdrop: fade(@color_black, 67%);
 
+@padding_page: 4rem;
+
 html {
     font-size: 12pt;
     font-family: "Helvetica Neue", "Helvetica", sans-serif;
     color: @color_backdrop;
-}
-
-html, body {
     height: 100%;
 }
 
 body {
     display: flex;
     flex-flow: row nowrap;
+    align-content: stretch;
+    min-height: 100%;
 
     &::before, &::after {
         content: '';
         display: block;
         flex: 1 0 auto;
-        height: 100%;
+        min-width: @padding_page;
         background-color: @color_backdrop;
     }
 
@@ -39,6 +40,7 @@ body > main {
         content: '';
         display: block;
         flex: 1 0 auto;
+        min-height: @padding_page;
         width: 100%;
         background-color: @color_backdrop;
     }
