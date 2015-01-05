@@ -94,8 +94,8 @@ module.exports = function(grunt) {
     cssmin: {
       prod: {
         files: [{
-          src: ['dist/style/main.css'],
-          dest: 'dist/style/main.min.css'
+          src: ['./dist/style/main.css'],
+          dest: './style/main.min.css'
         }]
       }
     },
@@ -103,9 +103,9 @@ module.exports = function(grunt) {
       compile: {
         options: {
           baseUrl: "./dist/js",
-          name: 'main',
-          mainConfigFile: "./dist/js/main.js",
-          out: "./dist/js/main.min.js",
+          name: 'app/main',
+          mainConfigFile: "./dist/js/app/main.js",
+          out: "./js/main.min.js",
           include: 'requireLib',
           paths: {
             requireLib: './vendor/require'
@@ -134,6 +134,13 @@ module.exports = function(grunt) {
         cwd: './src',
         src: ['**/*.js', '**/*.ejs', '**/*.scxml', '**/*.svg'],
         dest: './dist/js/'
+      },
+      assets: {
+        expand: true,
+        flatten: false,
+        cwd: './src',
+        src: ['**/*.svg', '**/*.scxml'],
+        dest: './js/'
       }
     }
   });
@@ -141,8 +148,10 @@ module.exports = function(grunt) {
   grunt.registerTask('default',      ['dist:watch', 'watch']);
   grunt.registerTask('install',      ['bower:install']);
   grunt.registerTask('styles',       ['less', 'autoprefixer']);
-  grunt.registerTask('dist:copy',    ['copy']);
+  grunt.registerTask('dist:copy',    ['copy:vendor', 'copy:sources']);
+  grunt.registerTask('prod:copy',    ['copy:assets']);
   grunt.registerTask('dist:watch',   ['styles', 'dist:copy', 'ejs:watch']);
   grunt.registerTask('dist:nowatch', ['styles', 'dist:copy', 'ejs:nowatch']);
+  grunt.registerTask('prod',         ['styles', 'dist:copy', 'requirejs', 'cssmin', 'prod:copy', 'ejs:prod']);
 
 };
