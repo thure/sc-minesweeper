@@ -7,11 +7,13 @@
     <datamodel>
         <data id="board"/>
         <data id="dispatch"/>
+        <data id="$reset"/>
     </datamodel>
 
     <state id="init">
         <transition event="ready" target="playing">
             <assign location="dispatch" expr="_event.data.dispatch"/>
+            <assign location="$reset" expr="_event.data.$reset"/>
             <script>
                 console.log('SC: app ready');
             </script>
@@ -23,6 +25,7 @@
             <script>
                 board = dispatch.play();
                 board.render();
+                $reset.blur();
             </script>
         </onentry>
 

@@ -19,7 +19,8 @@ requirejs([
 ], function(q, $, _, sci, dom, Board){
 
   function ready(results){
-    var sci = results[0];
+    var sci = results[0],
+        $reset = $('button[data-for="reset"]');
 
     var dispatch = {
 
@@ -37,14 +38,15 @@ requirejs([
 
     };
 
-    $('button[data-for="reset"]').on('click', function(){
+    $reset.on('click', function(){
       sci.gen('reset');
     });
 
     sci.gen({
       name: 'ready',
       data: {
-        dispatch: dispatch
+        dispatch: dispatch,
+        $reset: $reset
       }
     });
 
