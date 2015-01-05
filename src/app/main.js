@@ -20,12 +20,29 @@ requirejs([
 
   function ready(results){
     var sci = results[0];
-    sci.gen({
-      name: 'ready'
-    });
 
-    var gameBoard = new Board(sci, 8, 8, .1);
-    gameBoard.render();
+    var dispatch = {
+
+      lose: function(){
+        document.body.setAttribute('data-state', 'lost');
+      },
+      win: function(){
+        document.body.setAttribute('data-state', 'won');
+      },
+      play: function(){
+        var gameBoard = new Board(sci, 8, 8, .1);
+        document.body.setAttribute('data-state', 'playing');
+        return gameBoard;
+      }
+
+    };
+
+    sci.gen({
+      name: 'ready',
+      data: {
+        dispatch: dispatch
+      }
+    });
 
   }
 

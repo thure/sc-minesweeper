@@ -19,7 +19,7 @@ article.board {
 
     b.tile {
         color: transparent;
-        cursor: pointer;
+        cursor: default;
         font-size: 1.2rem;
         text-align: center;
         line-height: @size_tile;
@@ -30,7 +30,6 @@ article.board {
         transition: background-color 200ms ease, color 200ms ease;
 
         &.revealed {
-            cursor: default;
             background-color: transparent;
             color: @color_backdrop;
             &.mine {
@@ -40,4 +39,15 @@ article.board {
 
     }
 
+}
+
+body[data-state="playing"] article.board b.tile {
+    cursor: pointer;
+    &.revealed {
+        cursor: default;
+    }
+}
+
+body[data-state="lost"] article.board b.tile.mine {
+    background-color: red;
 }

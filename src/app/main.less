@@ -21,7 +21,7 @@ body {
     align-content: stretch;
     min-height: 100%;
 
-    &::before, &::after {
+    & > aside {
         content: '';
         display: block;
         flex: 1 0 auto;
@@ -36,7 +36,7 @@ body > main {
     display: flex;
     flex-flow: column nowrap;
 
-    &::before, &::after {
+    & > aside {
         content: '';
         display: block;
         flex: 1 0 auto;

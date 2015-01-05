@@ -4,16 +4,61 @@
         profile="ecmascript"
         initial="init">
 
+    <datamodel>
+        <data id="board"/>
+        <data id="dispatch"/>
+    </datamodel>
+
     <state id="init">
-        <transition event="ready" target="idle">
+        <transition event="ready" target="playing">
+            <assign location="dispatch" expr="_event.data.dispatch"/>
             <script>
                 console.log('SC: app ready');
             </script>
         </transition>
     </state>
 
-    <state id="idle">
+    <state id="playing">
+        <onentry>
+            <script>
+                board = dispatch.play();
+                board.render();
+            </script>
+        </onentry>
 
+        <state id="playing-idle">
+            <transition event="reveal" target="revealing">
+                <script>
+                    board.reveal(_event.data.x, _event.data.y);
+                </script>
+            </transition>
+        </state>
+
+        <state id="revealing">
+            <transition event="done-revealing" target="playing-idle"/>
+        </state>
+
+        <transition event="trip" target="lost"/>
+        <transition event="all-flagged" target="won"/>
+        <transition event="reset" target="playing"/>
+    </state>
+
+    <state id="lost">
+        <onentry>
+            <script>
+                dispatch.lose();
+            </script>
+        </onentry>
+        <transition event="reset" target="playing"/>
+    </state>
+
+    <state id="won">
+        <onentry>
+            <script>
+                dispatch.win();
+            </script>
+        </onentry>
+        <transition event="reset" target="playing"/>
     </state>
 
 </scxml>

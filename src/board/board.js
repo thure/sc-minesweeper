@@ -14,19 +14,31 @@ define([
     this.dispatch = {
 
       selectTile: _.bind(function(e){
-        var self = this;
+        if(e.target.classList.contains('mine')){
+          sci.gen('trip');
+        } else
         if(e.target.hasAttribute('data-x') && e.target.hasAttribute('data-y')){
-          var selection = this.game.select(
-              e.target.getAttribute('data-x'),
-              e.target.getAttribute('data-y')
-          );
-          _.each(selection, self.reveal);
+          sci.gen({
+            name: 'reveal',
+            data: {
+              x: e.target.getAttribute('data-x'),
+              y: e.target.getAttribute('data-y')
+            }
+          });
         }
-      }, this)
+      }, this),
+
+      transitionEnd: _.bind(_.debounce(function(e){
+        sci.gen('done-revealing');
+      }, 100), this)
 
     };
 
-    this.reveal = _.bind(function(tile){
+    this.reveal = _.bind(function(x, y){
+      _.each(this.game.select(x, y), this.revealTile);
+    }, this);
+
+    this.revealTile = _.bind(function(tile){
       var x = tile[0],
           y = tile[1];
 
@@ -70,7 +82,7 @@ define([
         romanize: this.romanize
       }));
 
-      $('body > main').append($el);
+      $('body > main > section.game').html($el);
 
       this.bind($el);
 
@@ -81,6 +93,7 @@ define([
       this.$el = $el;
 
       $el[0].addEventListener('mousedown', this.dispatch.selectTile);
+      $el[0].addEventListener('transitionend', this.dispatch.transitionEnd);
 
     };
 
