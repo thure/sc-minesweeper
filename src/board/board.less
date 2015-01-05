@@ -17,17 +17,28 @@ article.board {
 
     font-size: 0;
 
+    div.column, b.tile {
+        display: inline-block;
+        width: @size_tile;
+    }
+
+    div.column {
+        height: 100%;
+    }
+
     b.tile {
         font-size: 1rem;
         text-align: center;
-        display: inline-block;
         line-height: @size_tile;
         height: @size_tile;
-        width: @size_tile;
         overflow: hidden;
 
         &.mine {
-            background-color: red;
+            background-color: #F58F84;
+        }
+
+        &.revealed {
+            background-color: #86ABA5;
         }
 
     }

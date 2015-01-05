@@ -19,12 +19,12 @@ requirejs([
 ], function(q, $, _, sci, dom, Board){
 
   function ready(results){
-    var i = results[0];
-    i.gen({
+    var sci = results[0];
+    sci.gen({
       name: 'ready'
     });
 
-    var gameBoard = new Board(8, 8, .1);
+    var gameBoard = new Board(sci, 8, 8, .1);
     gameBoard.render();
 
   }
