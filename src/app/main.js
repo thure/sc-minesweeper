@@ -37,6 +37,10 @@ requirejs([
 
     };
 
+    $('button[data-for="reset"]').on('click', function(){
+      sci.gen('reset');
+    });
+
     sci.gen({
       name: 'ready',
       data: {

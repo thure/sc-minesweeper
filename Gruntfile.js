@@ -4,7 +4,10 @@ module.exports = function(grunt) {
 
   require('load-grunt-tasks')(grunt);
 
-  var watchPort = 35729;
+  var watchPort = 35729,
+      assets = {
+        'reset': grunt.file.read('./src/assets/reset.svg')
+      };
 
   // Project configuration.
   grunt.initConfig({
@@ -31,7 +34,8 @@ module.exports = function(grunt) {
         ext: '.html',
         options: {
           watch: watchPort,
-          prod: false
+          prod: false,
+          assets: assets
         }
       },
       nowatch: {
@@ -42,7 +46,8 @@ module.exports = function(grunt) {
         ext: '.html',
         options: {
           watch: false,
-          prod: false
+          prod: false,
+          assets: assets
         }
       },
       prod: {
@@ -53,7 +58,8 @@ module.exports = function(grunt) {
         ext: '.html',
         options: {
           watch: false,
-          prod: true
+          prod: true,
+          assets: assets
         }
       }
     },

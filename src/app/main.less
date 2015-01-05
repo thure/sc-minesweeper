@@ -8,6 +8,8 @@
 
 @padding_page: 4rem;
 
+@size_reset: 3rem;
+
 html {
     font-size: 12pt;
     font-family: "Helvetica Neue", "Helvetica", sans-serif;
@@ -43,10 +45,45 @@ body > main {
         min-height: @padding_page;
         width: 100%;
         background-color: @color_backdrop;
+        text-align: center;
+    }
+
+    button[data-for="reset"]{
+        width: @size_reset;
+        height: @size_reset;
+        padding: .5rem;
+        svg {
+            display: block;
+            width: 100%;
+            path {
+                fill: fade(white, 80%);
+                transition: fill .2s linear;
+            }
+        }
+
+        &:focus, &:hover {
+            svg {
+                path {
+                    fill: fade(#86ABA5, 80%);
+                }
+            }
+        }
+
     }
 
 }
 
 b {
     font-weight: inherit;
+}
+
+button {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background: none;
+
+    &:focus {
+        outline-style: none;
+    }
 }
