@@ -126,7 +126,7 @@ module.exports = function(grunt) {
         expand: true,
         flatten: false,
         cwd: './src',
-        src: ['**/*.js', '**/*.ejs', '**/*.scxml'],
+        src: ['**/*.js', '**/*.ejs', '**/*.scxml', '**/*.svg'],
         dest: './dist/js/'
       }
     }

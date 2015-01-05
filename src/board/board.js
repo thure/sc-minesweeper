@@ -2,8 +2,9 @@ define([
   'underscore',
   'jquery',
   'minesweeper/game',
-  'text!board/board.ejs'
-], function(_, $, Minesweeper, boardEJS){
+  'text!board/board.ejs',
+  'text!assets/mine.svg'
+], function(_, $, Minesweeper, boardEJS, mineSVG){
 
   var template = _.template(boardEJS);
 
@@ -14,15 +15,16 @@ define([
     this.dispatch = {
 
       selectTile: _.bind(function(e){
-        if(e.target.classList.contains('mine')){
+        var $tile = e.target.classList.contains('tile') ? $(e.target) : $(e.target).parents('.tile');
+        if($tile.hasClass('mine')){
           sci.gen('trip');
         } else
-        if(e.target.hasAttribute('data-x') && e.target.hasAttribute('data-y')){
+        if($tile.attr('data-x') && $tile.attr('data-y')){
           sci.gen({
             name: 'reveal',
             data: {
-              x: e.target.getAttribute('data-x'),
-              y: e.target.getAttribute('data-y')
+              x: $tile.attr('data-x'),
+              y: $tile.attr('data-y')
             }
           });
         }
@@ -79,7 +81,8 @@ define([
 
       var $el = $(template({
         game: this.game,
-        romanize: this.romanize
+        romanize: this.romanize,
+        mineSVG: mineSVG
       }));
 
       $('body > main > section.game').html($el);
@@ -94,6 +97,8 @@ define([
 
       $el[0].addEventListener('mousedown', this.dispatch.selectTile);
       $el[0].addEventListener('transitionend', this.dispatch.transitionEnd);
+      $el[0].addEventListener('animationend', this.dispatch.transitionEnd);
+      $el[0].addEventListener('webkitAnimationEnd', this.dispatch.transitionEnd);
 
     };
 

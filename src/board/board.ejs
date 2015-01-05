@@ -6,7 +6,11 @@
       <% _.each(column, function(tile, y){ %>
 
         <b class="tile<% if(tile.mine){ %> mine<% } %>" data-x="<%= x %>" data-y="<%= y %>">
-          <% if(tile.adjacent > 0 && !tile.mine){ print(romanize(tile.adjacent)) } %>
+          <% if(tile.mine){ %>
+            <%= mineSVG %>
+          <% }else if(tile.adjacent > 0){ %>
+            <%= romanize(tile.adjacent) %>
+          <% } %>
         </b>
 
       <% }); %>

@@ -1,10 +1,35 @@
 @size_tile: 2rem;
 
+@keyframes reveal-size {
+    0%, 33% {
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
+    100% {
+        height: 0;
+        width: 0;
+        top: 50%;
+        left: 50%;
+    }
+}
+
+@keyframes reveal-roundness {
+    0% {
+        border-radius: 0%;
+    }
+    67%, 100% {
+        border-radius: 50%;
+    }
+}
+
 article.board {
 
     flex: 0 0 auto;
     font-size: 0;
     padding: 1px 1px 0 0;
+    user-select: none;
 
     div.column, b.tile {
         vertical-align: top;
@@ -17,7 +42,8 @@ article.board {
         margin: 0 0 0 1px;
     }
 
-    b.tile {
+    .tile {
+        position: relative;
         color: transparent;
         cursor: default;
         font-size: 1.2rem;
@@ -26,14 +52,31 @@ article.board {
         height: @size_tile;
         margin: 0 0 1px 0;
         overflow: hidden;
-        background-color: @color_backdrop;
-        transition: background-color 200ms ease, color 200ms ease;
+        transition: color .2s linear;
+
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            z-index: -1;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            border-radius: 0;
+            background-color: @color_backdrop;
+            transition: background-color .2s linear;
+        }
+
+        svg {
+            opacity: 0;
+            transition: opacity .2s linear;
+        }
 
         &.revealed {
-            background-color: transparent;
             color: @color_backdrop;
-            &.mine {
-                background-color: red;
+            &::before {
+                animation: reveal-size .2s ease both, reveal-roundness .2s ease both;
             }
         }
 
@@ -49,5 +92,12 @@ body[data-state="playing"] article.board b.tile {
 }
 
 body[data-state="lost"] article.board b.tile.mine {
-    background-color: red;
+
+    svg {
+        opacity: 1;
+    }
+
+    &::before {
+        background-color: red;
+    }
 }
