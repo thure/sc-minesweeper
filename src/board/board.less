@@ -79,6 +79,12 @@ article.board {
             }
         }
 
+        &.flagged .cover {
+            background-image: url('../js/assets/flag.svg');
+            background-position: center;
+            background-size: contain;
+        }
+
     }
 
 }
@@ -97,6 +103,11 @@ body[data-state="lost"] article.board b.tile.mine {
     }
 
     .cover {
+        background-image: none;
         background-color: red;
     }
+}
+
+body[data-state="won"] article.board b.tile .cover {
+    background-color: fade(#407A52, 80%);
 }

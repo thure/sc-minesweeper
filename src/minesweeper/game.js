@@ -24,6 +24,16 @@ define([
         placeMines(width, height, difficulty)
     );
 
+    this.checkVictory = _.bind(function(){
+      for(var i = 0; i < this.width; i += 1){
+        for(var j = 0; j < this.height; j += 1){
+          var cur = this.board[i][j];
+          if((cur.mine && !cur.flagged) || (!cur.mine && cur.flagged)) return false;
+        }
+      }
+      return true;
+    }, this);
+
   }
 
   return Minesweeper;
