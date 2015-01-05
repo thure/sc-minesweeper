@@ -9,12 +9,13 @@ define([
   var template = _.template(boardEJS);
 
   function Board(sci, width, height, difficulty){
+    var self = this;
 
     this.game = new Minesweeper(width, height, difficulty);
 
     this.dispatch = {
 
-      selectTile: _.bind(function(e){
+      mousedown: _.bind(function(e){
         var $tile = e.target.classList.contains('tile') ? $(e.target) : $(e.target).parents('.tile');
         if($tile.hasClass('mine')){
           sci.gen('trip');
@@ -37,14 +38,30 @@ define([
     };
 
     this.reveal = _.bind(function(x, y){
-      _.each(this.game.select(x, y), this.revealTile);
+
+      _.each(this.game.select(x, y), function(tile){
+        self.revealTile(tile, x, y)
+      });
     }, this);
 
-    this.revealTile = _.bind(function(tile){
+    this.revealTile = _.bind(function(tile, ox, oy){
       var x = tile[0],
-          y = tile[1];
+          y = tile[1],
+          delay = Math.sqrt( Math.pow(x - ox, 2) + Math.pow(y - oy, 2) ) * 100 + 'ms';
 
-      return this.$el.find('b.tile[data-x="' + x + '"][data-y="' + y + '"]').addClass('revealed');
+      return this.$el.find('b.tile[data-x="' + x + '"][data-y="' + y + '"]').addClass('revealed').css({
+        'transition-delay': delay,
+        '-webkit-transition-delay': delay,
+        '-moz-transition-delay': delay,
+        '-o-transition-delay': delay,
+        '-ms-transition-delay': delay
+      }).find('.cover').css({
+        'animation-delay': delay,
+        '-webkit-animation-delay': delay,
+        '-moz-animation-delay': delay,
+        '-o-animation-delay': delay,
+        '-ms-animation-delay': delay
+      });
 
     }, this);
 
@@ -95,7 +112,7 @@ define([
 
       this.$el = $el;
 
-      $el[0].addEventListener('mousedown', this.dispatch.selectTile);
+      $el[0].addEventListener('mousedown', this.dispatch.mousedown);
       $el[0].addEventListener('transitionend', this.dispatch.transitionEnd);
       $el[0].addEventListener('animationend', this.dispatch.transitionEnd);
       $el[0].addEventListener('webkitAnimationEnd', this.dispatch.transitionEnd);

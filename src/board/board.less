@@ -54,8 +54,7 @@ article.board {
         overflow: hidden;
         transition: color .2s linear;
 
-        &::before {
-            content: '';
+        .cover {
             display: block;
             position: absolute;
             z-index: -1;
@@ -75,7 +74,7 @@ article.board {
 
         &.revealed {
             color: @color_backdrop;
-            &::before {
+            .cover {
                 animation: reveal-size .2s ease both, reveal-roundness .2s ease both;
             }
         }
@@ -97,7 +96,7 @@ body[data-state="lost"] article.board b.tile.mine {
         opacity: 1;
     }
 
-    &::before {
+    .cover {
         background-color: red;
     }
 }

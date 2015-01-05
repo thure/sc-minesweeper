@@ -6,6 +6,7 @@
       <% _.each(column, function(tile, y){ %>
 
         <b class="tile<% if(tile.mine){ %> mine<% } %>" data-x="<%= x %>" data-y="<%= y %>">
+          <i class="cover"></i>
           <% if(tile.mine){ %>
             <%= mineSVG %>
           <% }else if(tile.adjacent > 0){ %>
